@@ -1,0 +1,10 @@
+--ProductShortage by colors
+SELECT 
+    p.Name AS ProductName,
+    i.Quantity AS CurrentStock,
+    p.SafetyStockLevel,
+    (p.SafetyStockLevel - i.Quantity) AS Shortage
+FROM Production.Product p
+JOIN Production.ProductInventory i ON p.ProductID = i.ProductID
+WHERE i.Quantity < p.SafetyStockLevel
+ORDER BY Shortage DESC
