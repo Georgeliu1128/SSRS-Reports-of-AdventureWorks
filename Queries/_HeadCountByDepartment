@@ -1,0 +1,9 @@
+--_HeadCountByDepartment query
+SELECT 
+    d.Name AS Department,
+    COUNT(e.BusinessEntityID) AS Headcount
+FROM HumanResources.Employee e
+JOIN HumanResources.EmployeeDepartmentHistory edh ON e.BusinessEntityID = edh.BusinessEntityID
+JOIN HumanResources.Department d ON edh.DepartmentID = d.DepartmentID
+WHERE edh.EndDate IS NULL  -- Only current assignments
+GROUP BY d.Name
