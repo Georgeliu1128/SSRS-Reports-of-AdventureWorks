@@ -1,0 +1,15 @@
+--SaleQuota with parameter @Year
+SELECT e.BusinessEntityID, p.LastName + ' ' + p.FirstName AS Rep, 
+       ISNULL(SUM(soh.TotalDue),0) AS Actual, sp.SalesQuota,
+	   CAST(SUM(soh.TotalDue) * 100.0 / NULLIF(sp.SalesQuota, 0) AS DECIMAL(5,2)) AS PercentAchieved
+	   FROM Sales.SalesPerson sp 
+	   JOIN HumanResources.Employee e ON sp.BusinessEntityID = e.BusinessEntityID 
+	   JOIN Person.Person p ON e.BusinessEntityID = p.BusinessEntityID 
+	   LEFT JOIN Sales.SalesOrderHeader soh ON sp.BusinessEntityID = soh.SalesPersonID
+	   where YEAR(soh.OrderDate) = @Year 
+	   GROUP BY e.BusinessEntityID, p.LastName, p.FirstName, sp.SalesQuota
+
+
+-- @Year parameter query
+SELECT distinct Year(OrderDate) as SaleYear
+FROM Sales.SalesOrderHeader
