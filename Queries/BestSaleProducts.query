@@ -1,0 +1,26 @@
+--BestSaleProducts query with parameters @Year
+
+SELECT 
+    YEAR(soh.OrderDate) AS SalesYear,
+    p.ProductID,
+    p.Name AS ProductName,
+    SUM(sod.OrderQty) AS UnitsSold,
+    SUM(sod.LineTotal) AS Revenue,
+    RANK() OVER (PARTITION BY YEAR(soh.OrderDate) ORDER BY SUM(sod.OrderQty) DESC) AS RankByUnits
+FROM Sales.SalesOrderHeader soh
+JOIN Sales.SalesOrderDetail sod ON soh.SalesOrderID = sod.SalesOrderID
+JOIN Production.Product p ON sod.ProductID = p.ProductID
+WHERE YEAR(soh.OrderDate) = @Year
+GROUP BY 
+    YEAR(soh.OrderDate),
+    p.ProductID,
+    p.Name
+HAVING SUM(sod.OrderQty) > 0
+ORDER BY 
+    SalesYear,
+    UnitsSold DESC
+
+
+--Query for parameter @Year
+SELECT distinct Year(OrderDate) as SaleYear
+FROM Sales.SalesOrderHeader
