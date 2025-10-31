@@ -1,0 +1,17 @@
+--Top Customers query with parameter
+SELECT TOP 10 
+    c.CustomerID,
+    p.LastName + ' ' + p.FirstName AS CustomerName,
+    ROUND(SUM(sod.LineTotal),2) AS YTDSales
+FROM Sales.Customer c
+JOIN Person.Person p ON c.PersonID = p.BusinessEntityID
+JOIN Sales.SalesOrderHeader soh ON c.CustomerID = soh.CustomerID
+JOIN Sales.SalesOrderDetail sod ON soh.SalesOrderID = sod.SalesOrderID
+WHERE YEAR(soh.OrderDate) = @Year
+GROUP BY c.CustomerID, p.LastName, p.FirstName
+ORDER BY YTDSales DESC
+
+
+--Parameter query
+SELECT distinct Year(OrderDate) as SaleYear
+FROM Sales.SalesOrderHeader
