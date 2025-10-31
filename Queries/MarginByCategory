@@ -1,0 +1,10 @@
+--MarginByCategory query
+SELECT 
+    pc.Name AS ProductCategory,
+    p.ListPrice,
+    p.StandardCost,
+    (p.ListPrice - p.StandardCost) AS Profit
+FROM Production.Product p
+JOIN Production.ProductSubcategory ps ON p.ProductSubcategoryID = ps.ProductSubcategoryID
+JOIN Production.ProductCategory pc ON ps.ProductCategoryID = pc.ProductCategoryID
+WHERE p.ListPrice > 0 AND p.StandardCost > 0
