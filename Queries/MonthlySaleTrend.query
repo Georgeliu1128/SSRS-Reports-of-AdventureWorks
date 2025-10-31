@@ -1,0 +1,6 @@
+SELECT 
+    DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1) AS Month,
+    SUM(TotalDue) AS MonthlyRevenue
+FROM Sales.SalesOrderHeader
+GROUP BY DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1)
+ORDER BY Month;
