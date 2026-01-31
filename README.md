@@ -36,6 +36,7 @@ All reports are sourced from AdventureWorks data and showcase various SSRS featu
    Ranks top customers by year-to-date (YTD) sales revenue (bar chart or table with drill-through potential).  
    ![Top Customers by YTD Sales](Report%20Figures/TopCustomersbyYTDSales.png "Top customers ranked by year-to-date sales")
 
+
 ## Features Demonstrated
 
 - Parameterized reports (date ranges, categories, etc.)
