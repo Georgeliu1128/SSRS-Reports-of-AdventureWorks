@@ -56,7 +56,7 @@ All reports are sourced from AdventureWorks data and showcase various SSRS featu
    - Download and restore `AdventureWorks2022.bak` (or compatible version) to your SQL Server instance.
 
 3. **Open & Deploy Reports**
-   - Clone this repo.
+   - [Clone this repo](Reports.rdl).
    - Open the `.rdl` files in Report Builder or Visual Studio.
    - Update the data source connection string to point to your AdventureWorks database.
    - Deploy to your SSRS server or run locally in preview mode.
